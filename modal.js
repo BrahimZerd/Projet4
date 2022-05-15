@@ -19,8 +19,6 @@ const birthdate = document.getElementById("birthdate");
 const participations = document.getElementById("quantity");
 const form = document.querySelector("form");
 var inputs = document.getElementsByTagName("input");
-const firstError = document.getElementById("firsterror");
-const lastError = document.getElementById("lasterror");
 const btn = document.getElementById("btn-submit");
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -44,7 +42,7 @@ form.addEventListener('submit',function(e){
 
 });
 
-//Test unitaire prénom & nom
+//validation du champs : "prénom & nom"
 lastName.addEventListener("input", myEvent);
 function myEvent(a){
   if (a.target.value !== null) {
@@ -52,21 +50,21 @@ function myEvent(a){
     return false;
   }
 }
-//test unitaire MAIL 
-email.addEventListener("input", validEmail);
+//validation du champs : "MAIL" 
+email.addEventListener("change", validEmail);
 function validEmail() {
   let mail = email.value;
-  let errorMail = document.getElementById("errormail");
-  let verif 	= /^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/;
+  let error = document.createElement("p");
+  let errorMessage = email.parentNode.appendChild(error);
+  let regexMail 	= /^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/;
 
-  if(verif.exec(mail) == null) {
-    errorMail.innerText = "Veuillez renseigner une adresse mail valide"
-    errorMail.style.color ="red"
+  if(regexMail.exec(mail) == null) {
+    errorMessage.textContent = "Veuillez renseigner une adresse mail valide"
+    errorMessage.style.color = "red";
+    
     return false;
-
+    
   } else {
-    errorMail.innerText = "e-mail correct"
-    errorMail.style.color = "green";
     return true;
     
   }
@@ -89,6 +87,8 @@ function isValid() {
 }
 
 
+
+  
 
   
 
