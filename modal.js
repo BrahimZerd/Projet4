@@ -57,10 +57,11 @@ function validEmail() {
   let error = document.createElement("p");
   let errorMessage = email.parentNode.appendChild(error);
   let regexMail 	= /^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/;
-
+  
   if(regexMail.exec(mail) == null) {
     errorMessage.textContent = "Veuillez renseigner une adresse mail valide"
     errorMessage.style.color = "red";
+    
     
     return false;
     
@@ -68,23 +69,12 @@ function validEmail() {
     return true;
     
   }
+  
 }
 
 
 
 
-/// test validation function ///
-function isValid() {
-  if( lastName.value =="" && lastName.length < 2){
-   
-    lastError.innerText = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
-    return false;
-  }
-  if(firstName.value =="" && firstName.length < 2){
-    firstError.innerText = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
-    return false;
-  }
-}
 
 
 
