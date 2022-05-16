@@ -20,6 +20,8 @@ const participations = document.getElementById("quantity");
 const form = document.querySelector("form");
 var inputs = document.getElementsByTagName("input");
 const btn = document.getElementById("btn-submit");
+const radio = document.querySelectorAll(".checkbox-input");
+const quantity = document.getElementById("quantity");
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
@@ -103,22 +105,26 @@ form.addEventListener('submit',function(e){
       }
   }
 
-  form.addEventListener("submit",ValidBirth);
-  function ValidBirth() {
-    let birthInput = birthdate.value;
-    let regexBirth = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
-    if( regexBirth(birthInput) !== null ) {
-      birthdate.parentNode.appendChild(span)
-       span.textContent = "Vous devez entrer votre date de naissance." 
-      return false;
-    }else{
-      birthdate.parentNode.removeChild(span)
-      return true;
+ // Evenement pour la validation de la quantité d'événements
+ let quantityReg = /^(0?[1-9]|[1-9][0-9])$/;
+ quantity.addEventListener("keyup",qtyValid);
+  const quantityValue = quantity.value;
+  function qtyValid () {
+   if( quantityValue(isNaN)){
+    quantity.parentNode.appendChild(span)
+    span.textContent = "Veuillez entrer un chiffre entre 0 et 99"
+    
+   } else {
+    quantity.parentNode.appendChild(span)
+    span.textContent = ""
+   }
+  }
 
-  }}
 
 
-
+    
+  
+  
   
 
   
