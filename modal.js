@@ -43,38 +43,79 @@ form.addEventListener('submit',function(e){
 });
 
 //validation du champs : "prénom & nom"
-lastName.addEventListener("input", myEvent);
-function myEvent(a){
-  if (a.target.value !== null) {
-    lastError.innerText = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
-    return false;
-  }
-}
+
 //validation du champs : "MAIL" 
-email.addEventListener("change", validEmail);
-function validEmail() {
-  let mail = email.value;
   let error = document.createElement("p");
-  let errorMessage = email.parentNode.appendChild(error);
+  let errorMail = email.parentNode.appendChild(error);
+  //événement pour le mail
+  email.addEventListener("change", validEmail);
+ // fonction pour celui ci
+  function validEmail() {
+  let mail = email.value;
   let regexMail 	= /^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/;
   
   if(regexMail.exec(mail) == null) {
-    errorMessage.textContent = "Veuillez renseigner une adresse mail valide"
-    errorMessage.style.color = "red";
-    
+    errorMail.textContent = "Veuillez renseigner une adresse mail valide"
+    errorMail.style.color = "red";
     
     return false;
-    
-  } else {
-    return true;
-    
+    } else {
+    errorMail.textContent = ""
+    return true;}
   }
-  
-}
+
+// Evenement pour la validation du prénom
+  firstName.addEventListener("keyup",ValidName);
+  //création d'un élément pour le message d'erreur
+  let span = document.createElement("span")
+  firstName.parentNode.appendChild(span);
+  //fonction de validation
+  function ValidName() {
+    let firstInput = firstName.value;
+    if( firstInput.length < 2 && firstInput !== null) {
+      firstName.parentNode.appendChild(span);
+      span.textContent = "Veuillez entrer 2 caractères ou plus pour le champ du prénom."
+      span.style.color ="red";
+      return false;
+    } else {
+      firstName.parentNode.removeChild(span);
+      return true;
+      
+      }
+  }
 
 
+  // Evenement pour la validation du nom
+  lastName.addEventListener("keyup",Validlast);
+  //création d'un élément pour le message d'erreur
+ 
+  //fonction de validation
+  function Validlast() {
+    let lastInput = lastName.value;
+    if( lastInput.length < 2 && lastInput !== null) {
+      lastName.parentNode.appendChild(span);
+      span.textContent = "Veuillez entrer 2 caractères ou plus pour le champ du nom."
+      span.style.color ="red";
+      return false;
+    } else {
+      lastName.parentNode.removeChild(span);
+      return true;
+      }
+  }
 
+  form.addEventListener("submit",ValidBirth);
+  function ValidBirth() {
+    let birthInput = birthdate.value;
+    let regexBirth = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
+    if( regexBirth(birthInput) !== null ) {
+      birthdate.parentNode.appendChild(span)
+       span.textContent = "Vous devez entrer votre date de naissance." 
+      return false;
+    }else{
+      birthdate.parentNode.removeChild(span)
+      return true;
 
+  }}
 
 
 
