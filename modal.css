@@ -89,16 +89,14 @@ img {
     text-align: left;
   }
 }
-
-
-
- @media screen and (max-width: 540px) {
+@media screen and (max-width: 540px) {
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
     display: block;
     margin-top: -15px;
   }
+
 } 
 
 main {
@@ -263,8 +261,8 @@ input[data-error]::after {
   text-indent: 29px;
   white-space: nowrap;
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: 51.9%;
+  top: 51.8%;
   transform: translate(-50%, -50%);
   transition: 0.3s;
   opacity: 0;

@@ -20,8 +20,10 @@ const participations = document.getElementById("quantity");
 const form = document.querySelector("form");
 var inputs = document.getElementsByTagName("input");
 const btn = document.getElementById("btn-submit");
-const radio = document.querySelectorAll(".checkbox-input");
+
 const quantity = document.getElementById("quantity");
+const condition =document.getElementById("checkbox1");
+const radio = document.getElementsByTagName("radio");
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
@@ -40,11 +42,10 @@ modalClose.addEventListener('click', close);
 form.addEventListener('submit',function(e){
   e.preventDefault();
  console.log("click")
- 
+ });
 
-});
 
-//validation du champs : "prénom & nom"
+
 
 //validation du champs : "MAIL" 
   let error = document.createElement("p");
@@ -59,19 +60,18 @@ form.addEventListener('submit',function(e){
   if(regexMail.exec(mail) == null) {
     errorMail.textContent = "Veuillez renseigner une adresse mail valide"
     errorMail.style.color = "red";
-    
     return false;
     } else {
     errorMail.textContent = ""
     return true;}
   }
 
+   //création d'un élément pour le message d'erreur
+   let span = document.createElement("span")
+   firstName.parentNode.appendChild(span);
 // Evenement pour la validation du prénom
   firstName.addEventListener("keyup",ValidName);
-  //création d'un élément pour le message d'erreur
-  let span = document.createElement("span")
-  firstName.parentNode.appendChild(span);
-  //fonction de validation
+//fonction de validation
   function ValidName() {
     let firstInput = firstName.value;
     if( firstInput.length < 2 && firstInput !== null) {
@@ -82,16 +82,15 @@ form.addEventListener('submit',function(e){
     } else {
       firstName.parentNode.removeChild(span);
       return true;
-      
       }
   }
 
 
   // Evenement pour la validation du nom
   lastName.addEventListener("keyup",Validlast);
-  //création d'un élément pour le message d'erreur
+  
  
-  //fonction de validation
+  //fonction de validation pour le nom
   function Validlast() {
     let lastInput = lastName.value;
     if( lastInput.length < 2 && lastInput !== null) {
@@ -105,26 +104,70 @@ form.addEventListener('submit',function(e){
       }
   }
 
- // Evenement pour la validation de la quantité d'événements
- let quantityReg = /^(0?[1-9]|[1-9][0-9])$/;
- quantity.addEventListener("keyup",qtyValid);
-  const quantityValue = quantity.value;
-  function qtyValid () {
-   if( quantityValue(isNaN)){
-    quantity.parentNode.appendChild(span)
-    span.textContent = "Veuillez entrer un chiffre entre 0 et 99"
+ // Evenement pour la validation de la date de naissance
+
+      var date_regex = /^\d{4}-\d\d-\d\d$/;
+      form.addEventListener("submit", birthdateValidation)
+      function birthdateValidation (){ 
+ //si le format regex correspond, il retourne une valeur true
+      if(date_regex.test(birthdate.value)) 
+      {birthdate.parentNode.removeChild(span)
+       return true;
+       } else {
+  //sinon un bloc apparait et un message d'erreur en rouge en ressort avec la valeur false
+      
+      birthdate.parentNode.appendChild(span)
+      span.innerText = "Vous devez entrer votre date de naissance"
+      span.style.color ="red";
+      return false;}}
+ 
     
+  //validation des conditions cochés à l'envoie du formulaire
+    form.addEventListener("submit",Conditions)
+    function Conditions() {
+      if(condition.checked == true)
+  //si les conditions sont cochés on renvoie la valeur true 
+      {
+        condition.parentNode.removeChild(span)
+        return true;
+      } else {
+  //sinon on renvoie la valeur false avec un message qui apparait en rouge
+      condition.parentNode.appendChild(span)
+        span.textContent = "Vous devez vérifier que vous acceptez les termes et conditions."
+        span.style.color = "red";
+        return false;
+    }}
+    
+
+  // a controler
+  form.addEventListener("submit",OptionCheck)
+
+  function OptionCheck() {
+   if(radio.checked == true){
+     radio.parentNode.removeChild(span)
+     return true;
    } else {
-    quantity.parentNode.appendChild(span)
-    span.textContent = ""
+     radio.parentNode.appendChild(span)
+     span.textContent = "Vous devez choisir une option."
+     return false;
+     
    }
   }
-
-
-
-    
   
-  
+   
+  //fonction de validation du formulaire pour soumission de celui ci, il vérifie que chaque fonction s'éxécute et si c'est le cas, il envoie le formulaire avec un message
+  form.addEventListener("submit",validate)
+  function validate() {
+    if(!OptionCheck || !Conditions || !birthdateValidation || !Validlast || !ValidName || !validEmail)
+         {
+          form.preventDefault()
+      return false;
+    } else {
+      alert("Merci ! Votre réservation a été reçue.")
+      form.submit();
+      return true;
+    }
+  }
   
 
   
