@@ -23,7 +23,7 @@ const btn = document.getElementById("btn-submit");
 
 const quantity = document.getElementById("quantity");
 const condition =document.getElementById("checkbox1");
-const radio = document.getElementsByTagName("radio");
+
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
@@ -44,14 +44,14 @@ form.addEventListener('submit',function(e){
  console.log("click")
  });
 
-
-
+//fonction pour validation de soumission du formulaire
+let valid = false
 
 //validation du champs : "MAIL" 
   let error = document.createElement("p");
   let errorMail = email.parentNode.appendChild(error);
   //événement pour le mail
-  email.addEventListener("change", validEmail);
+  form.addEventListener("submit", validEmail);
  // fonction pour celui ci
   function validEmail() {
   let mail = email.value;
@@ -60,9 +60,11 @@ form.addEventListener('submit',function(e){
   if(regexMail.exec(mail) == null) {
     errorMail.textContent = "Veuillez renseigner une adresse mail valide"
     errorMail.style.color = "red";
+    valid= false
     return false;
     } else {
     errorMail.textContent = ""
+    valid = true
     return true;}
   }
 
@@ -78,9 +80,11 @@ form.addEventListener('submit',function(e){
       firstName.parentNode.appendChild(span);
       span.textContent = "Veuillez entrer 2 caractères ou plus pour le champ du prénom."
       span.style.color ="red";
+      valid = false
       return false;
     } else {
       firstName.parentNode.removeChild(span);
+      valid = true;
       return true;
       }
   }
@@ -97,9 +101,11 @@ form.addEventListener('submit',function(e){
       lastName.parentNode.appendChild(span);
       span.textContent = "Veuillez entrer 2 caractères ou plus pour le champ du nom."
       span.style.color ="red";
+      valid = false
       return false;
     } else {
       lastName.parentNode.removeChild(span);
+      valid = true;
       return true;
       }
   }
@@ -112,6 +118,7 @@ form.addEventListener('submit',function(e){
  //si le format regex correspond, il retourne une valeur true
       if(date_regex.test(birthdate.value)) 
       {birthdate.parentNode.removeChild(span)
+        valid = true;
        return true;
        } else {
   //sinon un bloc apparait et un message d'erreur en rouge en ressort avec la valeur false
@@ -119,6 +126,7 @@ form.addEventListener('submit',function(e){
       birthdate.parentNode.appendChild(span)
       span.innerText = "Vous devez entrer votre date de naissance"
       span.style.color ="red";
+      valid = false
       return false;}}
  
     
@@ -129,45 +137,39 @@ form.addEventListener('submit',function(e){
   //si les conditions sont cochés on renvoie la valeur true 
       {
         condition.parentNode.removeChild(span)
+        valid = true
         return true;
       } else {
   //sinon on renvoie la valeur false avec un message qui apparait en rouge
       condition.parentNode.appendChild(span)
         span.textContent = "Vous devez vérifier que vous acceptez les termes et conditions."
         span.style.color = "red";
+        valid = false
         return false;
     }}
     
 
   // a controler
-  form.addEventListener("submit",OptionCheck)
+  
 
-  function OptionCheck() {
-   if(radio.checked == true){
-     radio.parentNode.removeChild(span)
-     return true;
-   } else {
-     radio.parentNode.appendChild(span)
-     span.textContent = "Vous devez choisir une option."
-     return false;
-     
-   }
-  }
+
+  
+  //fonction de validation du formulaire pour soumission de celui ci, il vérifie que chaque fonction s'éxécute et si c'est le cas, il envoie le formulaire avec un message
+
+   form.addEventListener("submit",Valid)
+   function Valid () {
+    if (valid === true){
+      alert("Merci! Réservation enregistrée")
+      form.submit();
+    } else {
+    valid = false;
+    
+    }}
+
   
    
-  //fonction de validation du formulaire pour soumission de celui ci, il vérifie que chaque fonction s'éxécute et si c'est le cas, il envoie le formulaire avec un message
-  form.addEventListener("submit",validate)
-  function validate() {
-    if(!OptionCheck || !Conditions || !birthdateValidation || !Validlast || !ValidName || !validEmail)
-         {
-          form.preventDefault()
-      return false;
-    } else {
-      alert("Merci ! Votre réservation a été reçue.")
-      form.submit();
-      return true;
-    }
-  }
+ 
+ 
   
 
   
