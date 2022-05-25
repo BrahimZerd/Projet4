@@ -120,63 +120,83 @@ function validLast() {
 
 var date_regex = /^\d{4}-\d\d-\d\d$/;
 birthdate.addEventListener("input", birthdateValidation);
+const errorBirth = document.createElement("span");
 function birthdateValidation() {
   //si le format regex correspond, il retourne une valeur true
   if (date_regex.test(birthdate.value)) {
-    birthdate.parentNode.removeChild(span);
+    birthdate.parentNode.removeChild(errorBirth);
     valid = true;
     return true;
   } else {
     //sinon un bloc apparait et un message d'erreur en rouge en ressort avec la valeur false
 
-    birthdate.parentNode.appendChild(span);
-    span.innerText = "Vous devez entrer votre date de naissance";
-    span.style.color = "red";
+    birthdate.parentNode.appendChild(errorBirth);
+    errorBirth.innerText = "Vous devez entrer votre date de naissance";
+    errorBirth.style.color = "red";
+    errorBirth.style.fontSize ="16px"
     valid = false;
     return false;
   }
 }
 
 //validation des conditions cochés à l'envoie du formulaire
+const errorCondition = document.createElement("span")
 condition.addEventListener("click", Conditions);
 function Conditions() {
   if (condition.checked == true) {
     //si les conditions sont cochés on renvoie la valeur true
-    condition.parentNode.removeChild(span);
+    condition.parentNode.removeChild(errorCondition);
     valid = true;
     return true;
   } else {
     //sinon on renvoie la valeur false avec un message qui apparait en rouge
-    condition.parentNode.appendChild(span);
-    span.textContent =
+    condition.parentNode.appendChild(errorCondition);
+    errorCondition.textContent =
       "Vous devez vérifier que vous acceptez les termes et conditions.";
-    span.style.color = "red";
-    span.style.fontSize = "16px"
+    errorCondition.style.color = "red";
+    errorCondition.style.fontSize = "16px"
 
     valid = false;
     return false;
   }
 }
 
-// a controler
+// Appel en cas de soumission du formulaire pour vérifier si une destination a été coché
 const radios = document.querySelectorAll("input[type=radio]");
-document.querySelector('form').addEventListener('change', funaction)
 const p2 = document.createElement('p')
 p2.style.color = "red"
 p2.style.fontSize = "18px"
-function funaction () {
-for(var i = 0; i < radios.length; i++){
+//fonction avec boucle pour vérification de chaque cas de boutons check, si un seul est check la fonction s'arrête
+// Sinon elle fait apparaitre un message d'erreur.
 
-  if(radios[i].checked && radios[i].value !== null) {
-    radioError.parentNode.removeChild(p2)
-    return true;
-  } else {
-    radioError.parentNode.appendChild(p2)
-    p2.textContent = "Veuillez faire une sélection"
-  }
+form.addEventListener("change",radioCheck)
 
+function radioCheck (){
   
-}
+ for(let i = 0; i < radios.length;) {
+   
+   if 
+     (radios[i].checked) {
+       radioError.parentNode.removeChild(p2)
+       valid = true;
+      } else {
+      i++;
+      radioError.parentNode.appendChild(p2)
+      p2.innerText = "Veuillez faire un choix"
+      valid = false;
+   }
+ }}
+    
+  
+
+
+
+
+      
+  
+    
+  
+  
   
    
 
@@ -190,5 +210,6 @@ function Valid() {
     form.submit();
   } else {
     valid = false;
+    alert("Merci de compléter les cases manquantes")
   }
-}}
+}
