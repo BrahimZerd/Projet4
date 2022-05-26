@@ -41,7 +41,7 @@ modalClose.addEventListener("click", close);
 //désactivation submit par défaut du formulaire
 form.addEventListener("submit", function (e) {
   e.preventDefault();
-  console.log("click");
+  
 });
 
 //fonction pour validation de soumission du formulaire
@@ -60,7 +60,7 @@ function validEmail() {
   if (regexMail.exec(mail) == null) {
     errorMail.textContent = "Veuillez renseigner une adresse mail valide";
     errorMail.style.color = "red";
-    errorMail.style.fontSize = "16px"
+    errorMail.style.fontSize = "16px";
     valid = false;
     return false;
   } else {
@@ -76,7 +76,7 @@ span.style.color = "red";
 span.style.fontSize = "16px";
 // Evenement pour la validation du prénom
 firstName.addEventListener("keyup", validName);
-//fonction de validation
+//fonction de validation pour le prénom
 function validName() {
   let firstInput = firstName.value;
   if (firstInput.length < 2 && firstInput !== null) {
@@ -95,9 +95,9 @@ function validName() {
 // Evenement pour la validation du nom
 lastName.addEventListener("keyup", validLast);
 //fonction de validation pour le nom
-let span2 = document.createElement("span")
-span2.style.color = "red"
-span2.style.fontSize = "16px"
+let span2 = document.createElement("span");
+span2.style.color = "red";
+span2.style.fontSize = "16px";
 function validLast() {
   let lastInput = lastName.value;
   if (lastInput.length < 2 && lastInput !== null) {
@@ -113,8 +113,6 @@ function validLast() {
     return true;
   }
 }
-
-
 
 // Evenement pour la validation de la date de naissance
 
@@ -133,14 +131,35 @@ function birthdateValidation() {
     birthdate.parentNode.appendChild(errorBirth);
     errorBirth.innerText = "Vous devez entrer votre date de naissance";
     errorBirth.style.color = "red";
-    errorBirth.style.fontSize ="16px"
+    errorBirth.style.fontSize = "16px";
     valid = false;
     return false;
   }
 }
 
+//Validation pour intégrer un nombre dans le nombre d'événements participé.
+quantityError = document.createElement("span");
+quantityError.style.color = "red";
+quantityError.style.fontSize = "18px";
+//intégration d'une regex. qui intégre les nombres entre 0 et 99
+regexQuantity = /\b([0-9]|[1-9][0-9])\b/;
+
+//création d'une fonction qui test les entrées dans quantity.values  afin de vérifier que ça concorde avec la regex
+quantity.addEventListener("input", quantityValidation);
+function quantityValidation() {
+  if (regexQuantity.test(quantity.value)) {
+    quantity.parentNode.removeChild(quantityError);
+    valid = true;
+    return true;
+  } else {
+    quantity.parentNode.appendChild(quantityError);
+    quantityError.innerText = "Veuillez saisir une valeur numérique";
+    valid = false;
+    return false;
+  }
+}
 //validation des conditions cochés à l'envoie du formulaire
-const errorCondition = document.createElement("span")
+const errorCondition = document.createElement("span");
 condition.addEventListener("click", Conditions);
 function Conditions() {
   if (condition.checked == true) {
@@ -154,7 +173,7 @@ function Conditions() {
     errorCondition.textContent =
       "Vous devez vérifier que vous acceptez les termes et conditions.";
     errorCondition.style.color = "red";
-    errorCondition.style.fontSize = "16px"
+    errorCondition.style.fontSize = "16px";
 
     valid = false;
     return false;
@@ -163,53 +182,47 @@ function Conditions() {
 
 // Appel en cas de soumission du formulaire pour vérifier si une destination a été coché
 const radios = document.querySelectorAll("input[type=radio]");
-const p2 = document.createElement('p')
-p2.style.color = "red"
-p2.style.fontSize = "18px"
+const p2 = document.createElement("p");
+p2.style.color = "red";
+p2.style.fontSize = "18px";
 //fonction avec boucle pour vérification de chaque cas de boutons check, si un seul est check la fonction s'arrête
 // Sinon elle fait apparaitre un message d'erreur.
-
-form.addEventListener("change",radioCheck)
-
-function radioCheck (){
-  
- for(let i = 0; i < radios.length;) {
-   
-   if 
-     (radios[i].checked) {
-       radioError.parentNode.removeChild(p2)
-       valid = true;
-      } else {
+form.addEventListener("change", radioCheck);
+function radioCheck() {
+  for (let i = 0; i < radios.length; ) {
+    if (radios[i].checked) {
+      radioError.parentNode.removeChild(p2);
+      valid = true;
+    } else {
       i++;
-      radioError.parentNode.appendChild(p2)
-      p2.innerText = "Veuillez faire un choix"
+      radioError.parentNode.appendChild(p2);
+      p2.innerText = "Veuillez faire un choix";
       valid = false;
-   }
- }}
-    
-  
-
-
-
-
-      
-  
-    
-  
-  
-  
-   
-
+    }
+  }
+}
 
 //fonction de validation du formulaire pour soumission de celui ci, il vérifie que chaque fonction s'éxécute et si c'est le cas, il envoie le formulaire avec un message
-
+// apparition de bloc de remerciements après finalisation & validation du formulaire.
 form.addEventListener("submit", Valid);
 function Valid() {
   if (valid === true) {
-    alert("Merci! Réservation enregistrée");
-    form.submit();
+    const thank = document.getElementById("thanks");
+    thank.style.display = "block";
+    const body = document.querySelector(".modal-body");
+    body.style.display = "none";
   } else {
     valid = false;
-    alert("Merci de compléter les cases manquantes")
+    alert("Merci de compléter les cases manquantes");
   }
+}
+
+//fonction d'envoie du formulaire en cliquant sur fermer
+//réinitialisation du formulaire.
+
+const thankclose = document.getElementById("thankbtn");
+
+thankclose.addEventListener("click", thankYou);
+function thankYou() {
+  form.submit();
 }

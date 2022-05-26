@@ -145,6 +145,14 @@ main {
   border-radius: 15px;
   cursor: pointer;
   font-size: 16px;
+  
+}
+.close-thanks-btn {
+  border: none;
+  width: 150px;
+  position: absolute;
+  bottom: 25px;
+  right: 160px;
 }
 
 .button:hover {
@@ -184,6 +192,24 @@ main {
 .modal-body {
   padding: 15px 8%;
   margin: 15px auto;
+  
+}
+.thanks{
+   padding: 275px;
+   text-align: center;
+   margin-left: -180px;
+   display: none; 
+}
+.thanks-message{
+  width: 400px;
+}
+
+.thanks p {
+  text-align: center;
+  
+  margin-right: 100px;
+  font-size: 35px;
+  font-weight: 100;
 }
 
 label {
