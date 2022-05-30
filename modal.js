@@ -34,6 +34,8 @@ function launchModal() {
 //fonction de fermeture MODAL
 function close() {
   modalbg.style.display = "none";
+  
+
 }
 // appel pour fermeture modal au click
 modalClose.addEventListener("click", close);
@@ -225,4 +227,14 @@ const thankclose = document.getElementById("thankbtn");
 thankclose.addEventListener("click", thankYou);
 function thankYou() {
   form.submit();
+}
+
+//fonction réinitialisation du modal au clic sur la croix apres remerciements.
+modalClose.addEventListener("click", closeThank)
+function closeThank() {
+  const thank = document.getElementById("thanks");
+    thank.style.display = "none";
+    modalbg.style.display = "none";
+    const body = document.querySelector(".modal-body");
+    body.style.display = "block";
 }
