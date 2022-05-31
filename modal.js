@@ -226,7 +226,12 @@ const thankclose = document.getElementById("thankbtn");
 
 thankclose.addEventListener("click", thankYou);
 function thankYou() {
-  form.submit();
+  form.reset()
+  const thank = document.getElementById("thanks");
+  thank.style.display = "none";
+  modalbg.style.display = "none";
+  const body = document.querySelector(".modal-body");
+    body.style.display = "block";
 }
 
 //fonction réinitialisation du modal au clic sur la croix apres remerciements.
@@ -237,4 +242,6 @@ function closeThank() {
     modalbg.style.display = "none";
     const body = document.querySelector(".modal-body");
     body.style.display = "block";
+    
+    
 }
