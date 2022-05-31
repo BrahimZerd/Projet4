@@ -57,7 +57,7 @@ email.addEventListener("change", validEmail);
 // fonction pour celui ci
 function validEmail() {
   let mail = email.value;
-  let regexMail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/;
+  let regexMail = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/;
 
   if (regexMail.exec(mail) == null) {
     errorMail.textContent = "Veuillez renseigner une adresse mail valide";
