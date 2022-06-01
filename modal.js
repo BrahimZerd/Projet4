@@ -63,10 +63,12 @@ function validEmail() {
     errorMail.textContent = "Veuillez renseigner une adresse mail valide";
     errorMail.style.color = "red";
     errorMail.style.fontSize = "16px";
+    email.style.border = "2px solid red";
     valid = false;
     return false;
   } else {
     errorMail.textContent = "";
+    email.style.border = "none";
     valid = true;
     return true;
   }
@@ -85,10 +87,12 @@ function validName() {
     firstName.parentNode.appendChild(span);
     span.textContent =
       "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
+      firstName.style.border = "2px solid red"
     valid = false;
     return false;
   } else {
     firstName.parentNode.removeChild(span);
+    firstName.style.border = "none";
     valid = true;
     return true;
   }
@@ -104,12 +108,14 @@ function validLast() {
   let lastInput = lastName.value;
   if (lastInput.length < 2 && lastInput !== null) {
     lastName.parentNode.appendChild(span2);
+    lastName.style.border = "2px solid red"
     span2.textContent =
       "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
     valid = false;
     return false;
   } else {
     lastName.parentNode.removeChild(span2);
+    lastName.style.border = "none";
     span2.style.textAlign = "center";
     valid = true;
     return true;
@@ -125,6 +131,7 @@ function birthdateValidation() {
   //si le format regex correspond, il retourne une valeur true
   if (date_regex.test(birthdate.value)) {
     birthdate.parentNode.removeChild(errorBirth);
+    birthdate.style.border = "none"
     valid = true;
     return true;
   } else {
@@ -133,6 +140,7 @@ function birthdateValidation() {
     birthdate.parentNode.appendChild(errorBirth);
     errorBirth.innerText = "Vous devez entrer votre date de naissance";
     errorBirth.style.color = "red";
+    birthdate.style.border = "red 2px solid"
     errorBirth.style.fontSize = "16px";
     valid = false;
     return false;
@@ -151,11 +159,13 @@ quantity.addEventListener("input", quantityValidation);
 function quantityValidation() {
   if (regexQuantity.test(quantity.value)) {
     quantity.parentNode.removeChild(quantityError);
+    quantity.style.border = "none"
     valid = true;
     return true;
   } else {
     quantity.parentNode.appendChild(quantityError);
-    quantityError.innerText = "Veuillez saisir une valeur numérique";
+    quantityError.innerText = "Veuillez saisir une valeur comprise entre 0 et 99";
+    quantity.style.border = "red 2px solid"
     valid = false;
     return false;
   }
