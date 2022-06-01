@@ -18,7 +18,7 @@ const email = document.getElementById("email");
 const birthdate = document.getElementById("birthdate");
 const participations = document.getElementById("quantity");
 const form = document.querySelector("form");
-var inputs = document.getElementsByTagName("input");
+const inputs = document.getElementsByTagName("input");
 const btn = document.getElementById("btn-submit");
 const radioError = document.querySelector(".checkbox-label");
 const quantity = document.getElementById("quantity");
@@ -44,6 +44,8 @@ modalClose.addEventListener("click", close);
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   
+  
+  
 });
 
 //fonction pour validation de soumission du formulaire
@@ -65,12 +67,12 @@ function validEmail() {
     errorMail.style.fontSize = "16px";
     email.style.border = "2px solid red";
     valid = false;
-    return false;
+    
   } else {
     errorMail.textContent = "";
     email.style.border = "none";
     valid = true;
-    return true;
+    
   }
 }
 
@@ -89,12 +91,12 @@ function validName() {
       "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
       firstName.style.border = "2px solid red"
     valid = false;
-    return false;
+    
   } else {
     firstName.parentNode.removeChild(span);
     firstName.style.border = "none";
     valid = true;
-    return true;
+    
   }
 }
 
@@ -109,16 +111,18 @@ function validLast() {
   if (lastInput.length < 2 && lastInput !== null) {
     lastName.parentNode.appendChild(span2);
     lastName.style.border = "2px solid red"
+    
+
     span2.textContent =
       "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
     valid = false;
-    return false;
+    
   } else {
     lastName.parentNode.removeChild(span2);
     lastName.style.border = "none";
     span2.style.textAlign = "center";
     valid = true;
-    return true;
+    
   }
 }
 
@@ -225,7 +229,6 @@ function Valid() {
     body.style.display = "none";
   } else {
     valid = false;
-    alert("Merci de compléter les cases manquantes");
   }
 }
 
@@ -255,3 +258,13 @@ function closeThank() {
     
     
 }
+
+//En cas de submit faire une vérification de tous les champs avec chaque fonction précédemment crée.
+form.addEventListener("submit", validName)
+ form.addEventListener("submit", validLast)
+ form.addEventListener("submit", validEmail)
+ form.addEventListener("submit",birthdateValidation)
+ form.addEventListener("submit",Conditions)
+ form.addEventListener("submit", quantityValidation)
+
+
