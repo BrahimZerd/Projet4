@@ -66,13 +66,13 @@ function validEmail() {
     errorMail.style.color = "red";
     errorMail.style.fontSize = "16px";
     email.style.border = "2px solid red";
-    valid = false;
-    
+    valid ===false;
+    return false;
   } else {
     errorMail.textContent = "";
     email.style.border = "none";
-    valid = true;
-    
+    valid === true;
+    return true;
   }
 }
 
@@ -90,13 +90,13 @@ function validName() {
     span.textContent =
       "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
       firstName.style.border = "2px solid red"
-    valid = false;
-    
+    valid === false;
+    return false;
   } else {
     firstName.parentNode.removeChild(span);
     firstName.style.border = "none";
-    valid = true;
-    
+    valid === true;
+    return true;
   }
 }
 
@@ -115,14 +115,14 @@ function validLast() {
 
     span2.textContent =
       "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
-    valid = false;
-    
+    valid === false;
+    return false;
   } else {
     lastName.parentNode.removeChild(span2);
     lastName.style.border = "none";
     span2.style.textAlign = "center";
-    valid = true;
-    
+    valid === true;
+    return true;
   }
 }
 
@@ -136,7 +136,7 @@ function birthdateValidation() {
   if (date_regex.test(birthdate.value)) {
     birthdate.parentNode.removeChild(errorBirth);
     birthdate.style.border = "none"
-    valid = true;
+    valid === true;
     return true;
   } else {
     //sinon un bloc apparait et un message d'erreur en rouge en ressort avec la valeur false
@@ -146,7 +146,7 @@ function birthdateValidation() {
     errorBirth.style.color = "red";
     birthdate.style.border = "red 2px solid"
     errorBirth.style.fontSize = "16px";
-    valid = false;
+    valid === false;
     return false;
   }
 }
@@ -164,13 +164,13 @@ function quantityValidation() {
   if (regexQuantity.test(quantity.value)) {
     quantity.parentNode.removeChild(quantityError);
     quantity.style.border = "none"
-    valid = true;
+    valid === true;
     return true;
   } else {
     quantity.parentNode.appendChild(quantityError);
     quantityError.innerText = "Veuillez saisir une valeur comprise entre 0 et 99";
     quantity.style.border = "red 2px solid"
-    valid = false;
+    valid === false;
     return false;
   }
 }
@@ -181,7 +181,7 @@ function Conditions() {
   if (condition.checked == true) {
     //si les conditions sont cochés on renvoie la valeur true
     condition.parentNode.removeChild(errorCondition);
-    valid = true;
+    valid === true;
     return true;
   } else {
     //sinon on renvoie la valeur false avec un message qui apparait en rouge
@@ -191,7 +191,7 @@ function Conditions() {
     errorCondition.style.color = "red";
     errorCondition.style.fontSize = "16px";
 
-    valid = false;
+    valid === false;
     return false;
   }
 }
@@ -222,7 +222,7 @@ function radioCheck() {
 // apparition de bloc de remerciements après finalisation & validation du formulaire.
 form.addEventListener("submit", Valid);
 function Valid() {
-  if (valid === true) {
+  if (valid == true) {
     const thank = document.getElementById("thanks");
     thank.style.display = "block";
     const body = document.querySelector(".modal-body");
