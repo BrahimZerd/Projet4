@@ -229,6 +229,7 @@ function Valid() {
     body.style.display = "none";
   } else {
     valid = false;
+    alert("veuillez renseigner les champs manquants")
   }
 }
 
